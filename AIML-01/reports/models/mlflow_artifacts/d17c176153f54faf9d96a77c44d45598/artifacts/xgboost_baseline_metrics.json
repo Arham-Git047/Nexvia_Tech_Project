@@ -1,0 +1,47 @@
+{
+  "dataset": "IEEE-CIS Fraud Detection",
+  "best_iteration": 146,
+  "device": "cuda",
+  "split_fraud_rates": {
+    "train": 0.03516878014795175,
+    "validation": 0.03434145019812375,
+    "test": 0.03480430340592226
+  },
+  "test_at_default_threshold_0_5": {
+    "threshold": 0.5,
+    "average_precision_pr_auc": 0.23333483836597865,
+    "roc_auc": 0.7762718947046063,
+    "precision": 0.0350776899946263,
+    "recall": 0.9951346091469349,
+    "f1": 0.06776666004020056,
+    "true_negatives": 1103,
+    "false_positives": 84395,
+    "false_negatives": 15,
+    "true_positives": 3068,
+    "confusion_matrix_tn_fp_fn_tp": [
+      1103,
+      84395,
+      15,
+      3068
+    ]
+  },
+  "validation_selected_threshold": 0.9970218539237976,
+  "test_at_validation_f1_threshold": {
+    "threshold": 0.9970218539237976,
+    "average_precision_pr_auc": 0.23333483836597865,
+    "roc_auc": 0.7762718947046063,
+    "precision": 0.33741496598639453,
+    "recall": 0.24132338631203373,
+    "f1": 0.2813918305597579,
+    "true_negatives": 84037,
+    "false_positives": 1461,
+    "false_negatives": 2339,
+    "true_positives": 744,
+    "confusion_matrix_tn_fp_fn_tp": [
+      84037,
+      1461,
+      2339,
+      744
+    ]
+  }
+}

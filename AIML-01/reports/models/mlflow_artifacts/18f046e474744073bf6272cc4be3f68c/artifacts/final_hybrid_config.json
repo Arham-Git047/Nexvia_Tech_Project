@@ -1,0 +1,25 @@
+{
+  "dataset": "IEEE-CIS Fraud Detection",
+  "blend_method": "weighted_probability_average",
+  "xgboost_weight": 0.95,
+  "graphsage_weight": 0.050000000000000044,
+  "classification_threshold": 0.9749207496643066,
+  "blend_selection": "validation Average Precision",
+  "threshold_selection": "validation F1",
+  "xgboost_model": "models/baseline/xgboost_ieee_cis_baseline.json",
+  "graphsage_model": "models/baseline/graphsage_ieee_cis.pt",
+  "graph_preprocessing": "models/baseline/graph_preprocessing.joblib",
+  "test_metrics": {
+    "validation_average_precision": 0.3331938433456048,
+    "threshold_selected_on_validation": 0.9749207496643066,
+    "test_average_precision": 0.2452029758568984,
+    "test_roc_auc": 0.8154803506565609,
+    "test_precision": 0.23245533247375208,
+    "test_recall": 0.40934155043788517,
+    "test_f1": 0.29652255639097747,
+    "true_negatives": 81331,
+    "false_positives": 4167,
+    "false_negatives": 1821,
+    "true_positives": 1262
+  }
+}

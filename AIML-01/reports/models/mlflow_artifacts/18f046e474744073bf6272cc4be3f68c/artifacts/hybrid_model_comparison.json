@@ -1,0 +1,49 @@
+{
+  "dataset": "IEEE-CIS Fraud Detection",
+  "blend_method": "validation-selected weighted probability average",
+  "hybrid_xgboost_weight": 0.95,
+  "hybrid_graphsage_weight": 0.050000000000000044,
+  "selection_metric": "Validation Average Precision",
+  "threshold_selection": "Validation F1",
+  "models": {
+    "XGBoost": {
+      "validation_average_precision": 0.2742506397470276,
+      "threshold_selected_on_validation": 0.9970218539237976,
+      "test_average_precision": 0.23333483836597865,
+      "test_roc_auc": 0.7762718947046063,
+      "test_precision": 0.33741496598639453,
+      "test_recall": 0.24132338631203373,
+      "test_f1": 0.2813918305597579,
+      "true_negatives": 84037,
+      "false_positives": 1461,
+      "false_negatives": 2339,
+      "true_positives": 744
+    },
+    "GraphSAGE": {
+      "validation_average_precision": 0.2820717712636699,
+      "threshold_selected_on_validation": 0.7120499014854431,
+      "test_average_precision": 0.18104385927586247,
+      "test_roc_auc": 0.796968131615934,
+      "test_precision": 0.21360643745427946,
+      "test_recall": 0.3788517677586766,
+      "test_f1": 0.2731844228745176,
+      "true_negatives": 81198,
+      "false_positives": 4300,
+      "false_negatives": 1915,
+      "true_positives": 1168
+    },
+    "Hybrid": {
+      "validation_average_precision": 0.3331938433456048,
+      "threshold_selected_on_validation": 0.9749207496643066,
+      "test_average_precision": 0.2452029758568984,
+      "test_roc_auc": 0.8154803506565609,
+      "test_precision": 0.23245533247375208,
+      "test_recall": 0.40934155043788517,
+      "test_f1": 0.29652255639097747,
+      "true_negatives": 81331,
+      "false_positives": 4167,
+      "false_negatives": 1821,
+      "true_positives": 1262
+    }
+  }
+}

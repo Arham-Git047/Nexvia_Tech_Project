@@ -1,0 +1,21 @@
+{
+  "model": "GraphSAGE",
+  "best_epoch": 15,
+  "validation_average_precision": 0.28207177292352426,
+  "test_average_precision": 0.18104385927586247,
+  "test_roc_auc": 0.796968131615934,
+  "threshold_selected_on_validation": 0.7120499014854431,
+  "test_precision": 0.21360643745427946,
+  "test_recall": 0.3788517677586766,
+  "test_f1": 0.2731844228745176,
+  "true_negatives": 81198,
+  "false_positives": 4300,
+  "false_negatives": 1915,
+  "true_positives": 1168,
+  "confusion_matrix_tn_fp_fn_tp": [
+    81198,
+    4300,
+    1915,
+    1168
+  ]
+}
