@@ -1,0 +1,127 @@
+name: fraud-detection-platform
+services:
+  kafka:
+    image: confluentinc/cp-kafka:8.3.2
+    hostname: kafka
+    container_name: fraud-kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:29093"
+      KAFKA_LISTENERS: "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:29093"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-topics --bootstrap-server localhost:9092 --list >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 8s
+      retries: 15
+      start_period: 25s
+
+  feast-init:
+    build: .
+    command: ["python", "/app/feast_repo/bootstrap.py"]
+    environment:
+      FEAST_REPO_PATH: /feast_repo
+      FEAST_SOURCE_PATH: /data/processed/feast_features.parquet
+      RUNTIME_DIR: /runtime
+    volumes:
+      - ./feast_repo:/feast_repo:ro
+      - ../data/processed:/data/processed:ro
+      - ./runtime:/runtime
+    restart: "no"
+
+  api:
+    build: .
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    environment:
+      MODEL_DIR: /models/baseline
+      REPORT_MODELS: /reports/models
+      RUNTIME_DIR: /runtime
+      FEAST_REPO_PATH: /feast_repo
+    volumes:
+      - ../models/baseline:/models/baseline:ro
+      - ../reports/models:/reports/models
+      - ./feast_repo:/feast_repo:ro
+      - ./runtime:/runtime
+    ports:
+      - "8000:8000"
+    depends_on:
+      feast-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; d=urllib.request.urlopen('http://127.0.0.1:8000/health',timeout=3).read(); assert b'models_loaded' in d"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 90s
+
+  consumer:
+    build: .
+    command: ["python", "-m", "app.consumer"]
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_RAW_TOPIC: transactions.raw
+      KAFKA_SCORED_TOPIC: transactions.scored
+      KAFKA_GROUP_ID: fraud-scoring-v1
+      SCORING_API_URL: http://api:8000/score
+    depends_on:
+      kafka:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  dashboard:
+    build: .
+    command: ["streamlit", "run", "/app/dashboard.py", "--server.address=0.0.0.0", "--server.port=8501"]
+    environment:
+      SCORING_API_URL: http://api:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  producer:
+    build: .
+    command: ["python", "-m", "app.producer", "--delay-ms", "5"]
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_RAW_TOPIC: transactions.raw
+      EVENTS_PATH: /data/processed/stream_replay.jsonl
+    volumes:
+      - ../data/processed:/data/processed:ro
+    depends_on:
+      kafka:
+        condition: service_healthy
+    profiles: ["tools"]
+
+  drift-monitor:
+    build: .
+    command: ["python", "-m", "app.drift_monitor"]
+    environment:
+      MODEL_DIR: /models/baseline
+      DATA_PROCESSED: /data/processed
+      REPORT_MODELS: /reports/models
+      RUNTIME_DIR: /runtime
+    volumes:
+      - ../models/baseline:/models/baseline:ro
+      - ../data/processed:/data/processed:ro
+      - ../reports/models:/reports/models
+      - ./runtime:/runtime
+    profiles: ["tools"]
+
+volumes:
+  kafka_data:

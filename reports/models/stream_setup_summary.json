@@ -1,0 +1,12 @@
+{
+  "dataset": "IEEE-CIS Fraud Detection",
+  "historical_cutoff_index": 501959,
+  "historical_nodes_in_seed": 71283,
+  "profile_histories": 19568,
+  "replay_transactions": 1000,
+  "replay_is_chronological": true,
+  "feature_count": 435,
+  "seed_graph_path": "/content/drive/MyDrive/AIML-01/fraud-detection-platform/models/baseline/initial_graph_state.joblib",
+  "event_stream_path": "/content/drive/MyDrive/AIML-01/fraud-detection-platform/data/processed/stream_replay.jsonl",
+  "ground_truth_path": "/content/drive/MyDrive/AIML-01/fraud-detection-platform/data/processed/stream_replay_ground_truth.csv"
+}

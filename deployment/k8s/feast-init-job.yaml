@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fraud-feast-init
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: feast-init
+          image: fraud-detection-platform:local
+          imagePullPolicy: IfNotPresent
+          command: ["python", "/app/feast_repo/bootstrap.py"]
+          env:
+            - name: FEAST_REPO_PATH
+              value: /feast_repo
+            - name: FEAST_SOURCE_PATH
+              value: /data/processed/feast_features.parquet
+            - name: RUNTIME_DIR
+              value: /runtime
+          volumeMounts:
+            - name: feast-repo
+              mountPath: /feast_repo
+              readOnly: true
+            - name: processed-data
+              mountPath: /data/processed
+              readOnly: true
+            - name: runtime
+              mountPath: /runtime
+      volumes:
+        - name: feast-repo
+          hostPath:
+            path: /mnt/fraudproject/deployment/feast_repo
+            type: Directory
+        - name: processed-data
+          hostPath:
+            path: /mnt/fraudproject/data/processed
+            type: Directory
+        - name: runtime
+          persistentVolumeClaim:
+            claimName: fraud-runtime

@@ -1,0 +1,58 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.env
+.DS_Store
+# Large source data should not be committed to GitHub
+data/raw/*.csv
+data/processed/*
+# Local trained artifacts can be regenerated
+models/baseline/*.joblib
+
+# Environment files and secrets
+.env*
+!.env.example
+*.pem
+*.key
+
+# Runtime files and databases
+*.log
+*.db
+*.sqlite
+*.sqlite3
+deployment/runtime/
+
+# Local MLflow artifacts
+reports/mlflow.db
+reports/models/mlflow_artifacts/
+
+# Editor and operating system files
+.vscode/
+.idea/
+Thumbs.db
+
+# Include required trained models
+!models/baseline/*.joblib
+
+# Include demo and drift-monitoring data
+!data/processed/stream_replay.jsonl
+!data/processed/baseline_reference.csv
+!data/processed/feast_features.parquet
+
+# Exclude bulky prediction exports
+reports/models/*_test_predictions.csv
+reports/models/hybrid_test_predictions.csv
+
+# Dataset-derived files — retain locally
+data/processed/*
+!data/processed/README.md
+data/raw/**
+
+# Temporary backup files
+*.bak
+*.orig
+
+# Environment and local secrets
+.env*
+!.env.example

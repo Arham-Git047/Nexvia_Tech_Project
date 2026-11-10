@@ -1,0 +1,17 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+pydantic>=2.8,<3
+pandas>=2.2.3,<3.0
+numpy>=2.0,<3
+scikit-learn>=1.7,<2
+xgboost>=3.0,<4
+joblib>=1.4
+pyarrow>=18
+requests>=2.32
+kafka-python>=2.0.2
+streamlit>=1.40
+mlflow>=3.0,<4
+torch>=2.7
+torch-geometric>=2.6
+feast>=0.50,<1
+evidently>=0.7,<1

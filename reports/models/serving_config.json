@@ -1,0 +1,16 @@
+{
+  "dataset": "IEEE-CIS Fraud Detection",
+  "xgboost_model": "models/baseline/xgboost_ieee_cis_baseline.json",
+  "graphsage_model": "models/baseline/graphsage_ieee_cis.pt",
+  "xgboost_schema": "models/baseline/xgboost_feature_schema.joblib",
+  "graph_schema": "models/baseline/graph_feature_schema.joblib",
+  "hybrid_xgboost_weight": 0.95,
+  "hybrid_graphsage_weight": 0.050000000000000044,
+  "hybrid_threshold": 0.9749207496643066,
+  "graph_model_architecture": {
+    "type": "GraphSAGE",
+    "input_dim": 64,
+    "hidden_dim": 64,
+    "layers": 2
+  }
+}

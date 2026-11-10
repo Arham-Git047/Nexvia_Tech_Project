@@ -1,0 +1,17 @@
+{
+  "dataset": "IEEE-CIS Fraud Detection",
+  "transaction_rows": 590540,
+  "identity_rows": 144233,
+  "transaction_columns": 394,
+  "identity_columns": 41,
+  "fraud_rows": 20663,
+  "legitimate_rows": 569877,
+  "fraud_rate_percent": 3.499,
+  "transactions_with_identity": 144233,
+  "identity_coverage_percent": 24.424,
+  "transaction_dt_min": 86400.0,
+  "transaction_dt_max": 15811131.0,
+  "transaction_amount_min": 0.251,
+  "transaction_amount_max": 31937.391,
+  "duplicate_transaction_ids": 0
+}

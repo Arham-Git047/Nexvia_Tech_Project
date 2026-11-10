@@ -1,0 +1,13 @@
+{
+  "monitor": "Evidently DataDriftPreset plus PSI trigger",
+  "reference_rows": 3000,
+  "current_rows": 1000,
+  "features_compared": 435,
+  "features_with_psi_ge_0_25": 37,
+  "drifted_feature_share": 0.08505747126436781,
+  "trigger_threshold_share": 0.1,
+  "retraining_requested": false,
+  "evidently_report_generated": true,
+  "evidently_error": null,
+  "note": "Retraining requires newly reviewed labels and offline validation before any model replacement."
+}
