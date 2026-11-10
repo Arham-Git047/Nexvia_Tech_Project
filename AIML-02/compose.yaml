@@ -1,0 +1,60 @@
+name: medvision-review
+services:
+  api:
+    build: ./backend
+    environment:
+      MODEL_PATH: /models/densenet121_nih.pth
+      CASE_STORAGE_DIR: /data/cases
+      CASE_REGISTRY_PATH: /data/cases.json
+      AUDIT_LOG_PATH: /data/audit.jsonl
+      CORS_ORIGINS: http://localhost:8080,http://localhost:5173
+      MAX_UPLOAD_BYTES: 15728640
+    volumes:
+      - ./models:/models:ro
+      - ./runtime:/data
+    ports:
+      - "127.0.0.1:8000:8000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health',timeout=3)"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE: http://localhost:8000
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+  orthanc:
+    image: orthancteam/orthanc:latest
+    ports:
+      - "127.0.0.1:8042:8042"
+    volumes:
+      - orthanc-data:/var/lib/orthanc/db
+    restart: unless-stopped
+    profiles: ["dicom"]
+  orthanc-worker:
+    build: ./backend
+    command: ["python", "-m", "app.orthanc_worker"]
+    environment:
+      ORTHANC_URL: http://orthanc:8042
+      API_URL: http://api:8000
+      POLL_INTERVAL: 5
+      ORTHANC_OFFSET_FILE: /data/orthanc_offset.txt
+    volumes:
+      - ./runtime:/data
+    depends_on:
+      api:
+        condition: service_healthy
+      orthanc:
+        condition: service_started
+    restart: unless-stopped
+    profiles: ["dicom"]
+volumes:
+  orthanc-data: {}

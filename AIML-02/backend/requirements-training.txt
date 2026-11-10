@@ -1,0 +1,7 @@
+-r requirements.txt
+pandas>=2.2,<3.0
+scikit-learn>=1.4,<2.0
+tqdm>=4.66,<5.0
+dvc>=3.50,<4.0
+monai>=1.4,<2.0
+nibabel>=5.2,<6.0

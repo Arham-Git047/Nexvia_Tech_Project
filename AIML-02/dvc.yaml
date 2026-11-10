@@ -1,0 +1,12 @@
+stages:
+  train_classifier:
+    cmd: python scripts/train_classifier.py --csv data/raw/nih/Data_Entry_2017_v2020.csv --image-dir data/raw/nih/images --epochs 5 --output models/densenet121_nih.pth --metrics reports/classification_metrics.json
+    deps:
+      - scripts/train_classifier.py
+      - data/raw/nih/Data_Entry_2017_v2020.csv
+      - data/raw/nih/images
+    outs:
+      - models/densenet121_nih.pth
+    metrics:
+      - reports/classification_metrics.json:
+          cache: false

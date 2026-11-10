@@ -1,0 +1,35 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Datasets and runtime state
+data/raw/
+data/processed/
+runtime/*
+!runtime/.gitkeep
+*.dcm
+*.nii
+*.nii.gz
+*.npz
+
+# Model artifacts: keep the project checkpoint used by the demo; ignore other large weights
+models/*.pt
+models/*.onnx
+models/*.pth
+!models/densenet121_nih.pth
+artifacts/*
+!artifacts/.gitkeep

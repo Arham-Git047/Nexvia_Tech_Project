@@ -1,0 +1,6 @@
+MedVision Review API tests
+Date: 2026-10-23
+Command: PYTHONPATH=backend MODEL_PATH=/tmp/no-medical-checkpoint-expected.pth pytest -q backend/tests
+Result: 6 passed in 0.47s
+Scope: API health/model status, missing-checkpoint fail-closed response, MIME validation, unknown case response, and review state transition.
+Limitations: This run was in the generated build environment, not on the user's target Windows machine. No dataset training, clinical model metrics, Docker build, Orthanc end-to-end test, or clinical validation was performed.

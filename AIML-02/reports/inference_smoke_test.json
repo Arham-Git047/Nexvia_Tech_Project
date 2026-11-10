@@ -1,0 +1,16 @@
+{
+  "test_type": "single held-out ChestMNIST image inference smoke test",
+  "model_available": true,
+  "model_version": "densenet121-chestmnist-rapid-research-v1",
+  "top_finding": "Pneumothorax",
+  "top_score": 0.686565,
+  "gradcam_generated": true,
+  "gradcam_png_bytes": 1578,
+  "ui_display_verified": true,
+  "review_case_id_observed": "89205789",
+  "review_status_initial": "Awaiting Review",
+  "reviewer_id_used": "reviewer-01",
+  "review_action_completed": true,
+  "clinical_use": false,
+  "interpretation": "Experimental model output only. Scores are not calibrated diagnostic probabilities; Grad-CAM is an activation overlay, not a lesion mask."
+}

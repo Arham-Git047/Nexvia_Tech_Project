@@ -1,0 +1,115 @@
+{
+  "macro_average_precision": 0.11857279373922752,
+  "macro_roc_auc": 0.6023525556323617,
+  "micro_precision_at_0_5": 0.08729388942774007,
+  "micro_recall_at_0_5": 0.6293706293706294,
+  "micro_f1_at_0_5": 0.15332197614991483,
+  "labels_with_defined_ap": 13,
+  "labels_with_defined_auc": 13,
+  "per_label": {
+    "Atelectasis": {
+      "average_precision": 0.2668840672264019,
+      "roc_auc": 0.7393760746745272,
+      "positive_support": 23,
+      "negative_support": 177
+    },
+    "Cardiomegaly": {
+      "average_precision": 0.03488398036590807,
+      "roc_auc": 0.6362098138747885,
+      "positive_support": 3,
+      "negative_support": 197
+    },
+    "Effusion": {
+      "average_precision": 0.29462478446864426,
+      "roc_auc": 0.7419428571428571,
+      "positive_support": 25,
+      "negative_support": 175
+    },
+    "Infiltration": {
+      "average_precision": 0.2371582367844228,
+      "roc_auc": 0.6829318936877077,
+      "positive_support": 28,
+      "negative_support": 172
+    },
+    "Mass": {
+      "average_precision": 0.1881816050702879,
+      "roc_auc": 0.553519768563163,
+      "positive_support": 17,
+      "negative_support": 183
+    },
+    "Nodule": {
+      "average_precision": 0.1792813135207181,
+      "roc_auc": 0.5916230366492147,
+      "positive_support": 9,
+      "negative_support": 191
+    },
+    "Pneumonia": {
+      "average_precision": 0.010101010101010102,
+      "roc_auc": 0.507537688442211,
+      "positive_support": 1,
+      "negative_support": 199
+    },
+    "Pneumothorax": {
+      "average_precision": 0.05291510126708954,
+      "roc_auc": 0.47842105263157897,
+      "positive_support": 10,
+      "negative_support": 190
+    },
+    "Consolidation": {
+      "average_precision": 0.07220687671196928,
+      "roc_auc": 0.7053264604810997,
+      "positive_support": 6,
+      "negative_support": 194
+    },
+    "Edema": {
+      "average_precision": 0.0533731282278357,
+      "roc_auc": 0.7270408163265306,
+      "positive_support": 4,
+      "negative_support": 196
+    },
+    "Emphysema": {
+      "average_precision": 0.02297999033159999,
+      "roc_auc": 0.3117948717948718,
+      "positive_support": 5,
+      "negative_support": 195
+    },
+    "Fibrosis": {
+      "average_precision": 0.04404823209691775,
+      "roc_auc": 0.598974358974359,
+      "positive_support": 5,
+      "negative_support": 195
+    },
+    "Pleural_Thickening": {
+      "average_precision": 0.08480799243715229,
+      "roc_auc": 0.5558845299777943,
+      "positive_support": 7,
+      "negative_support": 193
+    },
+    "Hernia": {
+      "average_precision": null,
+      "roc_auc": null,
+      "positive_support": 0,
+      "negative_support": 200
+    }
+  },
+  "dataset": "MedMNIST ChestMNIST (NIH ChestX-ray14-derived; 28x28 educational benchmark)",
+  "dataset_license": "CC BY 4.0; cite MedMNIST and its source dataset",
+  "dataset_split": "official train / validation / test splits; deterministic subset from each split",
+  "train_samples": 800,
+  "validation_samples": 200,
+  "test_samples": 200,
+  "epochs_requested": 2,
+  "epochs_completed": 2,
+  "training_steps": 100,
+  "stopped_for_time_budget": false,
+  "image_size": 128,
+  "architecture": "DenseNet121, ImageNet pretrained",
+  "training_strategy": "frozen DenseNet feature extractor; train 14-label classifier head only",
+  "loss": "weighted multi-label BCEWithLogitsLoss",
+  "optimizer": "AdamW",
+  "device": "cpu",
+  "elapsed_training_minutes": 2.637,
+  "seed": 42,
+  "checkpoint_path": "/data/densenet121_nih.pth",
+  "warning": "Rapid, low-resolution subset experiment for education only. Metrics are subset metrics, not a clinical benchmark or validation of clinical use."
+}
